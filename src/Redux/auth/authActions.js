@@ -4,7 +4,7 @@ import * as actionTypes from "./authActionTypes";
 import config from "../../config";
 import { notify } from '../../reusable/ToastNotification/Notif';
 const {apiUrl,xApiKey} = config;
-console.log('authAction.js config',apiUrl,xApiKey);
+// console.log('authAction.js config',apiUrl,xApiKey);
 export const userLogout =() => {
   return {
     type: actionTypes.LOG_OUT,
@@ -85,7 +85,7 @@ export const userLogin = (user) => {
       .then((result) => {
         console.log("login fetch result", result);
         // return;
-        if (result.status == 200) {
+        if (result.status === 200) {
           dispatch(loginRequestSuccess(result.data));
           notify("login success ", "success");
           dispatch(getUserProfile(result.data.user.id,result.data.token));
@@ -117,7 +117,7 @@ export const getUserProfile = (userId, token) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.status == 200) {
+        if (result.status === 200) {
           dispatch(userFetchRequestSuccess(result.data));
         } else {
             notify("failed fetch user profile " +JSON.stringify(result.message), "error");
@@ -150,7 +150,7 @@ export const userForgotPassword = (email) => {
       .then((result) => {
         console.log("forgotpassword fetch result", result);
         // return;
-        if (result.status == 200) {
+        if (result.status === 200) {
           dispatch(userForgotPassRequestSuccess(result.data));
           notify("request sended " + JSON.stringify(result.message), "success");
         } else {

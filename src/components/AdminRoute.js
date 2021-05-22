@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const AdminRoute = ({ component: Component, ...rest }) => {
     const authState = useSelector((state) => state.authReducer);
-    console.log('authState adminroutes.js',authState)
+    // console.log('authState adminroutes.js',authState)
   return (
     <Route
       {...rest}

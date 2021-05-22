@@ -14,25 +14,27 @@ import {
   CPagination,
 } from "@coreui/react";
 
-import usersData from "./UsersData";
+
 import { useSelector, useDispatch } from "react-redux";
 
 import * as userActions from "../../Redux/User/actions";
+import { updateUserStatus, approvUser } from "../../Services/services";
+import { notify } from "../../reusable/ToastNotification/Notif";
 
-const getBadge = (status) => {
-  switch (status) {
-    case "Active":
-      return "success";
-    case "Inactive":
-      return "secondary";
-    case "Pending":
-      return "warning";
-    case "Banned":
-      return "danger";
-    default:
-      return "primary";
-  }
-};
+// const getBadge = (status) => {
+//   switch (status) {
+//     case "Active":
+//       return "success";
+//     case "Inactive":
+//       return "secondary";
+//     case "Pending":
+//       return "warning";
+//     case "Banned":
+//       return "danger";
+//     default:
+//       return "primary";
+//   }
+// };
 
 const Users = () => {
   const history = useHistory();
@@ -43,7 +45,8 @@ const Users = () => {
   const [details, setDetails] = useState([]);
   const [rowId, setRowId] = useState(0);
   const pageChange = (newPage) => {
-    currentPage !== newPage && history.push(`/users?page=${newPage}`);
+    currentPage !== newPage && history.push(`users?page=${newPage}`);
+    
   };
 
   useEffect(() => {
@@ -53,12 +56,12 @@ const Users = () => {
   const usersState = useSelector((state) => state.usersReducer);
   const authState = useSelector((state) => state.authReducer);
   const dispatch = useDispatch();
-  const location = useLocation();
-
+  // const location = useLocation();
+  const { user, token } = authState.userData;
   useEffect(() => {
-    const {user,token} = authState.userData;
-    console.log("useEffect component did mount[Users.js]",authState.userData);
-    dispatch(userActions.fetchUsers({token,userId:user.id}));
+    const { user, token } = authState.userData;
+    console.log("useEffect component did mount[Users.js]", authState.userData);
+    dispatch(userActions.fetchUsers({ token, userId: user.id }));
   }, [usersState.triggerUpdate]);
   console.log("usersState", usersState);
 
@@ -73,7 +76,46 @@ const Users = () => {
     setDetails(newDetails);
   };
 
-  console.log("react env REACT_APP_API_URL ", process.env.REACT_APP_API_URL);
+  const updateStatus = ({ userId, status }) => {
+    updateUserStatus({ userId, token, status, adminId: user.id })
+      .then((result) => {
+        console.log("result ", result);
+        // setLoading(false);
+        if (result.status === 200) {
+          notify("Status Update Success ", "success");
+          dispatch(userActions.trigerUpdate());
+          return;
+        }
+        notify("Failed to Update Status " + result.message, "warn");
+      })
+      .catch((err) => {
+        // setLoading(false);
+        console.log("getting error ", err);
+        notify("Failed to Update Status " + err.message, "warn");
+      });
+  };
+  const approv = (userId) => {
+    approvUser({ userId, token, adminId: user.id })
+      .then((result) => {
+        console.log("result ", result);
+        // setLoading(false);
+        if (result.status === 200) {
+          notify("User Approved ", "success");
+          dispatch(userActions.trigerUpdate());
+          return;
+        }
+        notify("Failed to Approv user " + result.message, "warn");
+      })
+      .catch((err) => {
+        // setLoading(false);
+        console.log("getting error ", err);
+        notify("Failed to Approv user " + err.message, "warn");
+      });
+  };
+
+  // console.log("react env REACT_APP_API_URL ", process.env.REACT_APP_API_URL);
+  console.log("currentPage [Users.js]", currentPage);
+  console.log("Page  [Users.js]", page);
   //         <button className="badge badge-primary">view</button>
   //         <button
   //           className="badge badge-primary ml-2"
@@ -89,21 +131,25 @@ const Users = () => {
         <CCard>
           <CCardHeader>
             Users
-            <small className="text-muted"> example</small>
+            {/* <small className="text-muted"> example</small> */}
           </CCardHeader>
           <CCardBody>
             <CDataTable
               items={usersState.users}
               fields={[
-                { key: "id", _classes: "font-weight-bold" },
-                "username",
-                "email",
-                "role_id",
-                "last_login",
-                "status",
-                "is_verify",
-                "createdOn",
-
+                { key: "Id", _classes: "font-weight-bold" },
+                "Username",
+                "Name",
+                "Email",
+                "Status",
+                // "IsVerifed",
+                {
+                  key: "IsVerifed",
+                  label: "Approved",
+                  _style: { width: "1%" },
+                  sorter: false,
+                  filter: false,
+                },
                 {
                   key: "show_details",
                   label: "Actions",
@@ -150,7 +196,8 @@ const Users = () => {
                       variant="outline"
                       shape="square"
                       size="sm"
-                      onClick={(item) => history.push(`/users/${user._id}`)}
+                      disabled
+                      onClick={(item) => history.push(`/users/${user.Id}`)}
                     >
                       view
                     </CButton>
@@ -161,28 +208,38 @@ const Users = () => {
                   return (
                     <CCollapse show={details.includes(index)}>
                       <CCardBody>
-                        <h4>{user.username}</h4>
+                        <h4>{user.Username}</h4>
                         <p className="text-muted">
-                          User since: {user.registered}
+                          User since: {new Date(user.CreatedOn).toDateString()}
                         </p>
-                        <CButton size="sm" color="info">
-                          User Settings
+                        <CButton
+                          size="sm"
+                          color="info"
+                          onClick={() => {
+                            approv( user.Id );
+                          }}
+                          disabled={user.IsVerifed}
+                        >
+                          Approv
                         </CButton>
                         <CButton
                           size="sm"
                           color="danger"
                           className="ml-1"
-                          disabled={user.role == 1}
+                          disabled={user.role === 1}
                           onClick={() => {
-                            setRowId(user._id);
-
-                            dispatch(
-                              userActions.deleteUser({ userId: user._id })
-                            );
+                            setRowId(user.Id);
+                            updateStatus({
+                              status: !user.Status,
+                              userId: user.Id,
+                            });
+                            // dispatch(
+                            //   userActions.deleteUser({ userId: user._id })
+                            // );
                           }}
                         >
-                          Delete
-                          {usersState.loading && user._id == rowId && (
+                          {user.Status ? "Block" : "Active"}
+                          {usersState.loading && user.id === rowId && (
                             <CSpinner color="success" size="sm" />
                           )}
                         </CButton>
@@ -190,17 +247,27 @@ const Users = () => {
                     </CCollapse>
                   );
                 },
+                IsVerifed: (user, index) => (
+                  <td>
+                    <CBadge color= {user.IsVerifed ? "success" :"warning"}> {user.IsVerifed ? "Yes" :"No"}</CBadge>
+                  </td>
+                ),
+                Status: (user, index) => (
+                  <td>
+                    <CBadge color= {user.Status ? "success" :"warning"}> {user.Status ? "Active" :"Blocked"}</CBadge>
+                  </td>
+                ),
               }}
             />
             {/* {users} */}
 
-             <CPagination
+            <CPagination
               activePage={page}
               onActivePageChange={pageChange}
               pages={5}
               doubleArrows={false}
               align="center"
-            />  
+            />
           </CCardBody>
         </CCard>
       </CCol>

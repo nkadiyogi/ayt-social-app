@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-export const notify = (text, type) => {
+export const notify = (text, type = 'aa') => {
 	// console.log("notify ", text, type);
 	switch (type.toLowerCase()) {
 		case "success":

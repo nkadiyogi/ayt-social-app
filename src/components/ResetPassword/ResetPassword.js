@@ -18,7 +18,7 @@ import {
 import CIcon from "@coreui/icons-react";
 import { resetPassword } from "../../Services/services";
 import { notify } from "../../reusable/ToastNotification/Notif";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SimpleReactValidator from "simple-react-validator";
 const ResetPassword = ({ match }) => {
   const [formState, setFormState] = useState({
@@ -36,6 +36,8 @@ const ResetPassword = ({ match }) => {
       setFormState({ ...formState, resetToken: resToken });
     }
   }, []);
+
+
   const inputValidator = useRef(new SimpleReactValidator());
   const { newPassword, resetToken, confirmPassword, confirmPassError } =
     formState;
@@ -55,7 +57,7 @@ const ResetPassword = ({ match }) => {
           setLoading(false);
           console.log("login fetch result", result);
           // return;
-          if (result.status == 200) {
+          if (result.status === 200) {
             notify("password reset success login now", "success");
             history.push("/signin");
           } else {

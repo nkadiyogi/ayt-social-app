@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import {  useHistory } from "react-router-dom";
 import {
-  CAlert,
+  // CAlert,
   CButton,
   CCard,
   CCardBody,
@@ -20,25 +20,23 @@ import CIcon from "@coreui/icons-react";
 import { useSelector, useDispatch } from "react-redux";
 import { userLogin } from "../../Redux/auth/authActions";
 import SimpleReactValidator from "simple-react-validator";
-import config from "../../config";
 import { userForgotPassword } from "../../Redux/auth/authActions";
-import { notify } from '../../reusable/ToastNotification/Notif';
+// import { notify } from '../../reusable/ToastNotification/Notif';
 const Login = () => {
   // browser history object
   const history = useHistory();
-  console.log("config ", config);
+  // console.log("config ", config);
   const inputValidator = useRef(new SimpleReactValidator());
   useEffect(() => {
     // console.log("useEffect");
   });
 
-  const appState = useSelector((state) => state.appReducer);
+  
   const authState = useSelector((state) => state.authReducer);
   const [values, setValues] = useState({
     email: "narendramalviya5@gmail.com",
     password: "123456",
   });
-  const [submitBtnText, setSubmitBtnText] = useState("Submit");
   const [forgotPassordState, setForgotPassordState] = useState({
     show: false,
     heading: "Forgot Password",
@@ -55,7 +53,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  if (authState.isSignedIn && authState.userData.user.role_id == 1) {
+  if (authState.isSignedIn && authState.userData.user.role_id === 1) {
     history.push("/admin/dashboard");
   } else if (authState.isSignedIn) {
     history.push("/");
@@ -76,8 +74,8 @@ const loginSubmitHandler = ()=>{
   }
   inputValidator.current.showMessages();
 }
-  console.log("login.js forgotPassordState ", forgotPassordState);
-  console.log("login.js authState ", authState);
+  // console.log("login.js forgotPassordState ", forgotPassordState);
+  // console.log("login.js authState ", authState);
 
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
@@ -108,9 +106,9 @@ const loginSubmitHandler = ()=>{
                         type="text"
                         placeholder="email"
                         autoComplete="email"
+                        name="email"
                         onChange={handleChange("email")}
                         value={email}
-                        name="email"
                         onFocus={() =>
                           inputValidator.current.showMessageFor("email")
                         }
@@ -157,7 +155,7 @@ const loginSubmitHandler = ()=>{
                           }}
                           disabled={loading}
                         >
-                          {loading ?' Wait...' :submitBtnText}
+                          {loading ?' Wait...' : 'Submit'}
                         </CButton>
                         {loading ?<CSpinner color="info" size="sm"/>  :null}
                       </CCol>
@@ -183,6 +181,7 @@ const loginSubmitHandler = ()=>{
                             'Forgot password?'
                           )}
                         </CButton>
+                    
                       </CCol>
                     </CRow>
                   </CForm>

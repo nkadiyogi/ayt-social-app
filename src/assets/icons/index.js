@@ -3,6 +3,7 @@ import { logo } from './logo'
 import { logoNegative } from './logo-negative'
 
 import {
+
   cibSkype,
   cibFacebook,
   cibTwitter,
@@ -234,6 +235,7 @@ export const icons = Object.assign({}, {
   cifEs,
   cifPl
 }, {
+  
   cibSkype,
   cibFacebook,
   cibTwitter,

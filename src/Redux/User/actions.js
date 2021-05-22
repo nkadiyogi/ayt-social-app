@@ -11,6 +11,12 @@ export const deleteUser = (data) => {
     payload: data,
   };
 };
+export const trigerUpdate = () => {
+  return {
+    type: actionTypes.TRIGGER_USERS_UPDATE,
+  
+  };
+};
 export const usersFetchRequest = () => {
   return {
     type: actionTypes.GET_USERS_REQUEST,
@@ -47,7 +53,7 @@ export const fetchUsers = ({token, userId}) => {
       .then((response) => response.json())
       .then((result) => {
         console.log("users fetch result", result);
-        if (result.status == 200) {
+        if (result.status === 200) {
           return dispatch(usersFetchRequestSuccess(result.data));
         } else {
           notify('failed to fetch users '+result.message,'error')

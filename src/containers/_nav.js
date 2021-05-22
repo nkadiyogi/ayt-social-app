@@ -30,7 +30,7 @@ const _nav = [
     _tag: "CSidebarNavItem",
     name: "Posts",
     to: "/admin/posts",
-    icon: <CIcon name="cil-newspaper" customClasses="c-sidebar-nav-icon" />,
+    icon: <CIcon name="" customClasses="c-sidebar-nav-icon" />,
 
   },
  

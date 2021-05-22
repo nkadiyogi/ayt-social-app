@@ -9,7 +9,7 @@ const prod = {
     port :process.env.REACT_APP_PORT,
     xApiKey :process.env.REACT_APP_X_API_KEY
 }
-const config = process.env.NODE_ENV == "development" ? dev : prod;
-console.log('process.env.NODE_ENV == development ',process.env.NODE_ENV == "development",config)
+const config = process.env.NODE_ENV === "development" ? dev : prod;
+console.log('process.env.NODE_ENV == development ',process.env.NODE_ENV === "development",config)
   
-export default {...config};
+export default config;

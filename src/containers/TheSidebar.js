@@ -10,10 +10,11 @@ import {
   CSidebarMinimizer,
   CSidebarNavDropdown,
   CSidebarNavItem,
+  
 } from '@coreui/react'
 
 import CIcon from '@coreui/icons-react'
-
+// import Logo from '../assets/icons/logo.jpg'
 // sidebar nav config
 import navigation from './_nav'
 import * as actionTypes from '../Redux/SideBar/actionTypes';
@@ -27,16 +28,17 @@ const TheSidebar = () => {
       onShowChange={(val) => dispatch({type: actionTypes.SET, sidebarShow: val })}
     >
       <CSidebarBrand className="d-md-down-none" to="/">
+        {/* <img src={Logo} alt="brand logo" /> */}
         <CIcon
           className="c-sidebar-brand-full"
-          name="logo-negative"
+          name="logo"
           height={35}
         />
         <CIcon
           className="c-sidebar-brand-minimized"
           name="sygnet"
           height={35}
-        />
+        /> 
       </CSidebarBrand>
       <CSidebarNav>
 

@@ -41,7 +41,7 @@ const Posts = React.lazy(() => import('./views/Post/Posts'));
 const Profile = React.lazy(() => import('./views/admin/profile/Profile'));
 
 const routes = [
-  { path: '/admin', exact: true, name: 'Home' },
+  // { path: '/admin/dashboard', exact: true, name: 'Home' },
   { path: '/admin/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/admin/profile', name: 'Profile', component: Profile },
   { path: '/admin/posts', name: 'Posts', component: Posts },

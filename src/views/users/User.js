@@ -8,22 +8,22 @@ import {
   CCardHeader,
   CCol,
   CRow,
-  CFormGroup,
+  // CFormGroup,
   CContainer,
   CForm,
-  CLabel,
+  // CLabel,
   CInput,
-  CFormText,
+  // CFormText,
   CButton,
   CInputGroupText,
-  CAlert
+  // CAlert
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
-import usersData from "./UsersData";
+
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { classNames } from "classnames";
+// import { classNames } from "classnames";
 
 import Spinner from '../../reusable/Spinner/Spinner';
 
@@ -31,10 +31,10 @@ const User = ({ match }) => {
 // form validator
   const formValidator = useRef(new SimpleReactValidator())
   const [showUpdateForm, setShowUpdateForm] = useState(0);
-  const [error,setError] = useState(null);
-  const [success,setSuccess] = useState(false);
+  // const [error,setError] = useState(null);
+  // const [success,setSuccess] = useState(false);
   const [loading,setLoading] = useState(false);
-  const usersState = useSelector((state) => state.usersReducer);
+  // const usersState = useSelector((state) => state.usersReducer);
   const appState = useSelector((state) => state.appReducer);
   console.log("appstate", appState);
   // form state
@@ -278,12 +278,12 @@ const User = ({ match }) => {
                   Back
                 </CButton>
               </CForm>
-              {error && (<CAlert color="danger">
+              {/* {error && (<CAlert color="danger">
                  Getting some error: {error}
               </CAlert>)}
               {success && (<CAlert color="success">
                   update success
-              </CAlert>)}
+              </CAlert>)} */}
             </CCol>
           </CRow>
         </CContainer>
