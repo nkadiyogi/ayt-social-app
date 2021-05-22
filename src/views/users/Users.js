@@ -60,10 +60,10 @@ const Users = () => {
   const { user, token } = authState.userData;
   useEffect(() => {
     const { user, token } = authState.userData;
-    console.log("useEffect component did mount[Users.js]", authState.userData);
+    // console.log("useEffect component did mount[Users.js]", authState.userData);
     dispatch(userActions.fetchUsers({ token, userId: user.id }));
-  }, [usersState.triggerUpdate]);
-  console.log("usersState", usersState);
+  }, [usersState.triggerUpdate,authState,dispatch]);
+  // console.log("usersState", usersState);
 
   const toggleDetails = (index) => {
     const position = details.indexOf(index);
@@ -79,7 +79,7 @@ const Users = () => {
   const updateStatus = ({ userId, status }) => {
     updateUserStatus({ userId, token, status, adminId: user.id })
       .then((result) => {
-        console.log("result ", result);
+        // console.log("result ", result);
         // setLoading(false);
         if (result.status === 200) {
           notify("Status Update Success ", "success");
@@ -97,7 +97,7 @@ const Users = () => {
   const approv = (userId) => {
     approvUser({ userId, token, adminId: user.id })
       .then((result) => {
-        console.log("result ", result);
+        // console.log("result ", result);
         // setLoading(false);
         if (result.status === 200) {
           notify("User Approved ", "success");
@@ -108,23 +108,15 @@ const Users = () => {
       })
       .catch((err) => {
         // setLoading(false);
-        console.log("getting error ", err);
+        // console.log("getting error ", err);
         notify("Failed to Approv user " + err.message, "warn");
       });
   };
 
   // console.log("react env REACT_APP_API_URL ", process.env.REACT_APP_API_URL);
-  console.log("currentPage [Users.js]", currentPage);
-  console.log("Page  [Users.js]", page);
-  //         <button className="badge badge-primary">view</button>
-  //         <button
-  //           className="badge badge-primary ml-2"
-  //           disabled={user.role == 1}
-  //           onClick={() =>
-  //             dispatch(userActions.deleteUser({ userId: user._id }))
-  //           }
-  //         >
-
+  // console.log("currentPage [Users.js]", currentPage);
+  // console.log("Page  [Users.js]", page);
+  
   return (
     <CRow>
       <CCol>
@@ -196,7 +188,7 @@ const Users = () => {
                       variant="outline"
                       shape="square"
                       size="sm"
-                      disabled
+                      disabled={true}
                       onClick={(item) => history.push(`/users/${user.Id}`)}
                     >
                       view

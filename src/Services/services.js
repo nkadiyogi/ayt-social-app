@@ -87,3 +87,59 @@ export const approvUser = ({ userId, token ,adminId}) => {
     response.json()
   );
 };
+
+export const getAllUserCount = ({ token ,adminId}) => {
+  const { apiUrl, xApiKey } = config;
+
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+      "X-API-KEY": xApiKey,
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  return fetch(`${apiUrl}/dashboard/allUserCount/${adminId}`, options).then((response) =>
+    response.json()
+  );
+};
+
+export const getAllActiveUserCount = ({ token ,adminId}) => {
+  const { apiUrl, xApiKey } = config;
+
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+      "X-API-KEY": xApiKey,
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  return fetch(`${apiUrl}/dashboard/allActiveUserCount/${adminId}`, options).then((response) =>
+    response.json()
+  );
+};
+export const getAllBlockedUserCount = ({ token ,adminId}) => {
+  const { apiUrl, xApiKey } = config;
+
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+      "X-API-KEY": xApiKey,
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  return fetch(`${apiUrl}/dashboard/allBlockedUserCount/${adminId}`, options).then((response) =>
+    response.json()
+  );
+};

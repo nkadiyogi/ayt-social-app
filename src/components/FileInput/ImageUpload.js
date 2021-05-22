@@ -52,7 +52,7 @@ export default class ImageUpload extends React.Component {
 
     return (
       <div className="previewComponent d-flex">
-        <form onSubmit={(e) => this._handleSubmit(e)}>
+        <div>
           <input
             className="form-control"
             type="file"
@@ -61,7 +61,7 @@ export default class ImageUpload extends React.Component {
           {/* <button className="submitButton" 
               type="submit" 
               onClick={(e)=>this._handleSubmit(e)}>Upload Image</button> */}
-        </form>
+        </div>
         <div className="imgPreview text-center w-100">{$imagePreview}</div>
       </div>
     );

@@ -5,7 +5,7 @@ const TheFooter = () => {
   return (
     <CFooter fixed={false} className="background-yellow">
       <div>
-        <a href="#" target="_blank" rel="noopener noreferrer">Social Media</a>
+        <a href="/" target="_blank" rel="noopener noreferrer">Social Media</a>
         <span className="ml-1">&copy; 2020-21 @copyright.</span>
       </div>
       {/* <div className="mfs-auto">

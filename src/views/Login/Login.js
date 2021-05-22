@@ -21,6 +21,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userLogin } from "../../Redux/auth/authActions";
 import SimpleReactValidator from "simple-react-validator";
 import { userForgotPassword } from "../../Redux/auth/authActions";
+
 // import { notify } from '../../reusable/ToastNotification/Notif';
 const Login = () => {
   // browser history object
@@ -79,6 +80,7 @@ const loginSubmitHandler = ()=>{
 
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
+       
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md="5">
@@ -146,8 +148,8 @@ const loginSubmitHandler = ()=>{
                     <CRow>
                       <CCol xs="6">
                         <CButton
-                          color="primary"
-                          className="px-4 mr-2"
+                        
+                          className="px-4 mr-2 background-yellow"
                           onClick={() => {
                             forgotPassordState.show
                               ?  forgotPasswordSubmitHandler()
@@ -191,7 +193,8 @@ const loginSubmitHandler = ()=>{
           </CCol>
         </CRow>
       </CContainer>
-    
+       
+
     </div>
   );
 };

@@ -18,23 +18,23 @@ import ProfileForm from "./ProfileForm";
 
 const Profile = ({ match }) => {
   const [showUpdateForm, setShowUpdateForm] = useState(0);
-  const appState = useSelector((state) => state.appReducer);
+  
   const authState = useSelector((state) => state.authReducer);
 
   const dispatch = useDispatch();
   const userProfile = authState.profile;
-  console.log("appstate", appState);
+  // console.log("appstate", appState);
   // form state
 
   const token = authState.userData.token;
   const userData = authState.userData.user;
   useEffect(() => {
     dispatch(getUserProfile(userData.id, token));
-  }, [userData, token]);
+  }, [userData, token,dispatch]);
 
   // }, [userData,token,dispatch]);
 
-  console.log("component did mount[User.js]authState", authState);
+  // console.log("component did mount[User.js]authState", authState);
   const notFound = Object.entries(userProfile)
     ? null
     : [
@@ -139,8 +139,7 @@ const Profile = ({ match }) => {
                 {notFound}
                 {authState.loading || notFound ? null : (
                   <CButton
-                    color="primary"
-                    className="px-4"
+                    className="px-4 background-yellow"
                     onClick={() => setShowUpdateForm(1)}
                   >
                     Update Profile

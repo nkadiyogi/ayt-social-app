@@ -62,7 +62,7 @@ const ProfileForm = (props) => {
   const userData = authState.userData.user;
   useEffect(() => {
     dispatch(getUserProfile(userData.id, token));
-  }, []);
+  }, [dispatch,userData,token]);
 
   useEffect(() => {
     // console.log("component did mount[User.js]", authState.userData);
@@ -71,8 +71,8 @@ const ProfileForm = (props) => {
   }, [userProfile]);
   // }, [userData,token,dispatch]);
 
-  console.log("component did mount[User.js]authState", authState);
-  console.log("component did mount[User.js] form", form);
+  // console.log("component did mount[User.js]authState", authState);
+  // console.log("component did mount[User.js] form", form);
 
   const handleChange = (name) => (event) => {
     // console.log(event.target.value);
@@ -157,10 +157,10 @@ const ProfileForm = (props) => {
         </option>
       ));
 
-  console.log("coutnry list", countryList);
-  console.log("state list", stateList);
-  console.log("city list", cityList);
-  console.log("form ProfileForm", form);
+  // console.log("coutnry list", countryList);
+  // console.log("state list", stateList);
+  // console.log("city list", cityList);
+  // console.log("form ProfileForm", form);
 
   return (
     <>
@@ -191,7 +191,7 @@ const ProfileForm = (props) => {
                   {inputValidator.current.message(
                     "name",
                     name,
-                    ["required", "name"],
+                    ["required"],
                     { className: "text-danger" }
                   )}
                 </CFormText>
@@ -216,7 +216,7 @@ const ProfileForm = (props) => {
                   {inputValidator.current.message(
                     "username",
                     username,
-                    ["required", "username"],
+                    ["required"],
                     { className: "text-danger" }
                   )}
                 </CFormText>
@@ -250,7 +250,7 @@ const ProfileForm = (props) => {
             </CCol>
             <CCol sm="12" lg="6">
               <CFormGroup>
-                <CLabel htmlFor="nf-email">Phone Number</CLabel>
+                <CLabel htmlFor="phone_no">Phone Number</CLabel>
                 <CInput
                   type="text"
                   id="phone_no"
@@ -267,7 +267,7 @@ const ProfileForm = (props) => {
                   {inputValidator.current.message(
                     "username",
                     phone_no,
-                    ["required", "phone_no"],
+                    ["required"],
                     { className: "text-danger" }
                   )}
                 </CFormText>
@@ -278,30 +278,30 @@ const ProfileForm = (props) => {
           <CRow>
             <CCol sm="12" lg="6">
               <CFormGroup>
-                <CLabel htmlFor="nf-email">Date of birth </CLabel>
+                <CLabel htmlFor="birth_date">Date of birth </CLabel>
                 <CInput
                   type="date"
                   id="birth_date"
                   name="birth_date"
                   onChange={handleChange("birth_date")}
                   value={birth_date}
-                  // onFocus={() =>
-                  //   inputValidator.current.showMessageFor("birth_date")
-                  // }
+                  onFocus={() =>
+                    inputValidator.current.showMessageFor("birth_date")
+                  }
                 />
                 <CFormText className="help-block">
-                  {/* {inputValidator.current.message(
+                  {inputValidator.current.message(
                     "birth_date",
                     birth_date,
-                    ["required", "birth_date"],
+                    ["required"],
                     { className: "text-danger" }
-                  )} */}
+                  )}
                 </CFormText>
               </CFormGroup>
             </CCol>
             <CCol sm="12" lg="6">
               <CFormGroup>
-                <CLabel htmlFor="nf-email">Pin code</CLabel>
+                <CLabel htmlFor="pincode">Pin code</CLabel>
                 <CInput
                   type="text"
                   id="pincode"
@@ -316,9 +316,9 @@ const ProfileForm = (props) => {
                 />
                 <CFormText className="help-block">
                   {inputValidator.current.message(
-                    "phone_no",
-                    phone_no,
-                    ["required", "phone_no"],
+                    "pincode",
+                    pincode,
+                    ["required"],
                     { className: "text-danger" }
                   )}
                 </CFormText>
@@ -346,7 +346,7 @@ const ProfileForm = (props) => {
                   {inputValidator.current.message(
                     "country_id",
                     country_id,
-                    ["required", "country_id"],
+                    ["required"],
                     { className: "text-danger" }
                   )}
                 </CFormText>
@@ -355,8 +355,9 @@ const ProfileForm = (props) => {
 
             <CCol sm="12" lg="6">
               <CFormGroup>
-                <CLabel htmlFor="nf-email">State </CLabel>
+                <CLabel htmlFor="state_id">State </CLabel>
                 <select
+                id="state_id"
                   className="form-control"
                   onChange={handleChange("state_id")}
                   value={state_id}
@@ -371,7 +372,7 @@ const ProfileForm = (props) => {
                   {inputValidator.current.message(
                     "state_id",
                     state_id,
-                    ["required", "state_id"],
+                    ["required"],
                     { className: "text-danger" }
                   )}
                 </CFormText>
@@ -382,8 +383,9 @@ const ProfileForm = (props) => {
           <CRow>
             <CCol sm="12" lg="6">
               <CFormGroup>
-                <CLabel htmlFor="nf-email">City </CLabel>
+                <CLabel htmlFor="city_id">City </CLabel>
                 <select
+                id="city_id"
                   className="form-control"
                   onChange={handleChange("city_id")}
                   value={city_id}
@@ -400,7 +402,7 @@ const ProfileForm = (props) => {
                   {inputValidator.current.message(
                     "city_id",
                     city_id,
-                    ["required", "city_id"],
+                    ["required"],
                     { className: "text-danger" }
                   )}
                 </CFormText>
@@ -409,8 +411,9 @@ const ProfileForm = (props) => {
 
             <CCol sm="12" lg="6">
               <CFormGroup>
-                <CLabel htmlFor="nf-email">Address </CLabel>
+                <CLabel htmlFor="address">Address </CLabel>
                 <textarea
+                id="address"
                   className="form-control"
                   onChange={handleChange("address")}
                   value={address}
@@ -422,55 +425,16 @@ const ProfileForm = (props) => {
                 </textarea>
                 <CFormText className="help-block">
                   {inputValidator.current.message(
-                    "state_id",
-                    country_id,
-                    ["required", "state_id"],
+                    "address",
+                    address,
+                    ["required"],
                     { className: "text-danger" }
                   )}
                 </CFormText>
               </CFormGroup>
             </CCol>
           </CRow>
-          {/* row  6*/}
-          {/* <CRow>
-            <CCol sm="12" lg="6">
-            <CFormGroup>
-                <CLabel htmlFor="nf-email">Profile Picture</CLabel>
-                <CInput
-                  type="file"
-                  id="image"
-                  name="image"
-                  // onChange={handleChange("image")}
-                  value={username}
-                  onFocus={() =>
-                    inputValidator.current.showMessageFor("username")
-                  }
-                />
-                <CFormText className="help-block">
-                  {inputValidator.current.message(
-                    "username",
-                    username,
-                    ["required", "username"],
-                    { className: "text-danger" }
-                  )}
-                </CFormText>
-              </CFormGroup>
-           
-          
-            </CCol>
-
-            <CCol sm="12" lg="6">
-              <CFormGroup>
-                
-                <img
-                  className="form-control"
-                  src={}
-                >
-                  {address}
-                </img>
-              </CFormGroup>
-            </CCol>
-          </CRow> */}
+         
           <CRow>
             <CCol sm="12" lg="12">
               <CLabel htmlFor="nf-email">Profile Picture </CLabel>
@@ -480,8 +444,8 @@ const ProfileForm = (props) => {
             </CCol>
           </CRow>
           <CButton
-            color="primary"
-            className="px-4"
+            // color="primary"
+            className="px-4 background-yellow mt-4"
             disabled={loading}
             onClick={onSubmit}
           >
@@ -495,8 +459,8 @@ const ProfileForm = (props) => {
           </CButton>
 
           <CButton
-            color="primary"
-            className="px-4 ml-2"
+            // color="primary"
+            className="px-4 ml-2 background-yellow mt-4"
             onClick={() => props.setShowUpdateForm(0)}
           >
             Back to profile

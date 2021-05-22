@@ -38,7 +38,7 @@ export const usersFetchRequestSuccess = (users) => {
 // // get all users
 export const fetchUsers = ({token, userId}) => {
   return (dispatch) => {
-    console.log("apiUrl ", apiUrl);
+    // console.log("apiUrl ", apiUrl);
     dispatch(usersFetchRequest());
     fetch(`${apiUrl}/Users/${userId}`, {
       method: "GET",
@@ -52,7 +52,7 @@ export const fetchUsers = ({token, userId}) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log("users fetch result", result);
+        // console.log("users fetch result", result);
         if (result.status === 200) {
           return dispatch(usersFetchRequestSuccess(result.data));
         } else {
@@ -61,9 +61,9 @@ export const fetchUsers = ({token, userId}) => {
         }
       })
       .catch((err) => {
-        console.log("fetch failed error", err);
-        dispatch(usersFetchRequestFailed(JSON.stringify(err)));
-        notify("failed to fetch users " + JSON.stringify(err), "error");
+        // console.log("fetch failed error", err);
+        dispatch(usersFetchRequestFailed(err.message));
+        notify("failed to fetch users " + err.message, "error");
       });
   };
 };

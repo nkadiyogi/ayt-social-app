@@ -29,14 +29,18 @@ const ResetPassword = ({ match }) => {
   });
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+
   useEffect(() => {
-    console.log("resetpassword match props did mount", match);
-    let resToken = match.params.token;
-    if (resToken) {
-      setFormState({ ...formState, resetToken: resToken });
-    }
+    // console.log("resetpassword match props did mount", match);
+    intializeFormData();
   }, []);
 
+const intializeFormData = ()=>{
+  let resToken = match.params.token;
+  if (resToken) {
+    setFormState({ ...formState, resetToken: resToken });
+  }
+}
 
   const inputValidator = useRef(new SimpleReactValidator());
   const { newPassword, resetToken, confirmPassword, confirmPassError } =
@@ -77,7 +81,7 @@ const ResetPassword = ({ match }) => {
       notify("Fill required field", "error");
     }
   };
-  console.log("resetpassword match props", match);
+  // console.log("resetpassword match props", match);
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
       <CContainer>

@@ -8,7 +8,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import './App.css'
-import { TheFooter } from "./containers";
+import  TheFooter  from "./containers/TheFooter";
+import PublicHeader from "./views/PublicHeader";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -33,7 +34,7 @@ console.log('process.env.NODE_ENV ',process.env.NODE_ENV);
   return (
     <BrowserRouter >
       <React.Suspense fallback={loading}>
-        
+     {isSignedIn ? null :  <PublicHeader/>}
         <Switch>
           <Route
             exact
@@ -74,8 +75,8 @@ console.log('process.env.NODE_ENV ',process.env.NODE_ENV);
             )}
           /> */}
         </Switch>
-        <ToastContainer />
-        {isSignedIn?null: <TheFooter/>}
+        <ToastContainer />     
+        {isSignedIn ? null :  <TheFooter/>}   
       </React.Suspense>
     </BrowserRouter>
   );
