@@ -1,0 +1,16 @@
+export const SIGNUP = "SIGNUP";
+export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_FAILED = "SIGNUP_FAILED";
+export const SIGNUP_STATUS_SUCCESS = "SUCCESS";
+export const SIGNUP_STATUS_PROCESSING = "PROCESSING";
+export const SIGNUP_STATUS_FAILED = "FAILED";
+export const SIGNUP_CLEAR_FORM_STATE = "CLEAR";
+
+export const ON_INPUT_CHANGE = "ON_INPUT_CHANGE";
+export const ON_SUBMIT = "ON_SUBMIT";
+export const ON_SUBMIT_SUCCESS = "ON_SUBMIT_SUCCESS";
+
+// export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
+
+// export const LOGIN_REQUEST = 'LOGIN_REQUEST';
